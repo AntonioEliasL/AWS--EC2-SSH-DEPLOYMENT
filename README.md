@@ -1,46 +1,48 @@
-# Conexión Remota Segura mediante SSH a Instancia AWS EC2
+# Despliegue de Infraestructura Cloud, Servidores Web y Resolución DNS en AWS
 
-## Descripción del Proyecto
-Este proyecto documenta el proceso completo de despliegue, configuración y establecimiento de una conexión remota segura a un servidor virtual en la nube utilizando **Amazon Web Services (AWS)**. Se implementó una instancia **AWS EC2** con el sistema operativo **Ubuntu Server**, gestionando el acceso mediante llaves criptográficas y políticas restrictivas de filtrado de tráfico.
-
-El objetivo principal es demostrar habilidades en la administración remota de servidores en entornos Cloud y la aplicación de lineamientos básicos de seguridad perimetral.
+Este repositorio contiene la documentación técnica y de configuración de prácticas de ingeniería de redes y servidores aplicadas sobre la nube de **Amazon Web Services (AWS)**[cite: 1, 2].
 
 ---
 
-## Arquitectura y Componentes Tecnológicos
+## Proyecto 1: Conexión Remota Segura mediante SSH a AWS EC2
 
-*   **Proveedor Cloud:** Amazon Web Services (AWS Console).
-*   **Servidor Virtual:** Instancia EC2 (Tipo `t3.micro`).
-*   **Sistema Operativo:** Ubuntu Server (Distribución Linux).
-*   **Protocolo de Red:** SSH (Secure Shell) sobre puerto 22/TCP.
-*   **Autenticación:** Par de claves (Key Pair) con cifrado RSA (Archivo `.pem`).
-*   **Herramientas de Conexión:** Termius / Terminal de comandos.
+### Descripción
+Despliegue y configuración de acceso remoto seguro a un servidor virtual utilizando **AWS EC2** con **Ubuntu Server**, gestionando el acceso mediante llaves criptográficas asimétricas y reglas restrictivas de firewall perimetral[cite: 1].
 
----
-
-## Fases del Despliegue e Implementación
-
-### 1. Inicialización de la Instancia Cloud
-*   Configuración y lanzamiento de la máquina virtual utilizando una AMI oficial de Ubuntu Server.
-*   Asignación automática de una dirección IP pública para permitir el enrutamiento y acceso externo desde redes públicas.
-
-### 2. Gestión de Seguridad y Acceso Criptográfico
-*   Generación de un par de llaves (`Llave de Acceso.pem`) para mitigar los riesgos de autenticación tradicional por contraseñas mediante el uso de llaves criptográficas.
-*   Configuración de políticas de firewall mediante un **Security Group** de AWS, habilitando de forma exclusiva las conexiones entrantes dirigidas al puerto 22 (SSH) bajo el protocolo de transporte TCP.
-
-### 3. Administración y Conectividad Remota
-*   Configuración de perfiles de conexión segura (Hosts) dentro de la herramienta **Termius**.
-*   Validación exitosa del handshake de SSH y acceso directo a la shell remota del servidor de AWS para su posterior gestión.
+### Tecnologías y Componentes
+*   **Instancia Cloud:** AWS EC2 (`t3.micro`)[cite: 1].
+*   **Sistema Operativo:** Ubuntu Server[cite: 1].
+*   **Seguridad:** Par de claves (Key Pair, archivo `.pem`)[cite: 1] y AWS Security Groups (Puerto 22/TCP)[cite: 1].
+*   **Cliente SSH:** Termius[cite: 1].
 
 ---
 
-## Contenido del Repositorio
+## Proyecto 2: Configuración de Servidor Web Nginx y Enlace DNS Dinámico
 
-*   **`/docs/Reporte_Conexion_SSH_AWS.pdf`**: Documento de ingeniería detallado que contiene los objetivos de la práctica, los detalles conceptuales de la arquitectura, la evidencia fotográfica del aprovisionamiento en la consola de AWS y la captura de la conexión exitosa por consola.
+### Descripción
+Aprovisionamiento de un servidor web **Nginx** en la nube y configuración de un **DNS Dinámico (DDNS)** para asociar un Nombre de Dominio Completamente Calificado (FQDN) a la dirección IP pública del servidor virtual, permitiendo el enrutamiento lógico del tráfico HTTP[cite: 2].
+
+### 🛠️ Tecnologías y Componentes
+*   **Servidor Web:** Nginx (instalación, auditoría de estados mediante `systemctl` y configuración de bloques virtuales)[cite: 2].
+*   **Servicio DNS:** DuckDNS para resolución dinámica de nombres (Dominio: `tonytnmnpr.duckdns.org` apuntando a la IP de AWS)[cite: 2].
+*   **Configuración del Servidor (Nginx Host):** Edición del archivo `/etc/nginx/sites-available/default` para enlazar la directiva `server_name`[cite: 2].
+*   **Seguridad y Puertos (AWS Security Group):** Apertura y filtrado perimetral de los siguientes puertos[cite: 2]:
+    *   **Puerto 53 (UDP/TCP):** Para resolución estándar y transferencias de zonas DNS[cite: 2].
+    *   **Puerto 3389 (TCP):** Habilitación para conexiones de interfaz gráfica remota (RDP)[cite: 2].
+    *   **Puerto 123 (UDP):** Para sincronización horaria de red mediante protocolo NTP[cite: 2].
 
 ---
 
-## Conclusiones y Aprendizajes Técnicos
-*   Comprensión del funcionamiento del protocolo SSH para establecer canales de comunicación completamente cifrados.
-*   Experiencia práctica en el aprovisionamiento de infraestructura en la nube y el uso de consolas de administración Cloud de nivel empresarial.
-*   Implementación de buenas prácticas en seguridad de redes mediante el principio de mínimo privilegio en reglas de Security Groups.
+## Estructura de Documentos (`/docs`)
+
+Los reportes detallados de ingeniería, con diagramas, comandos detallados y evidencias fotográficas de conectividad, se encuentran en la carpeta de documentación[cite: 1, 2]:
+
+*    **`docs/Reporte_Conexion_SSH_AWS.pdf`**: Guía de despliegue de instancia EC2 y accesos por SSH[cite: 1].
+*    **`docs/Implementacion_Servidor_Web_DNS.pdf`**: Guía paso a paso de instalación de Nginx, configuración de bloques virtuales, DDNS y reglas de puertos[cite: 2].
+
+---
+
+## Conclusiones y Habilidades Consolidadas
+*   **Administración Cloud:** Experiencia en aprovisionamiento y gestión operativa de sistemas Linux sobre entornos empresariales AWS[cite: 1, 2].
+*   **Seguridad Perimetral:** Implementación de políticas de cortafuegos restrictivas y del principio de mínimo privilegio en nubes públicas[cite: 1, 2].
+*   **Infraestructura de Red:** Comprensión práctica de la resolución jerárquica de nombres de dominio DNS y el flujo de tráfico desde un navegador cliente hasta los recursos locales del servidor[cite: 2].
